@@ -15,6 +15,19 @@
         </nav>
     </header>
 
+    <!-- Button to show the create post form -->
+    <div id="createPostButtonContainer">
+        <button id="showPostFormButton" onclick="togglePostForm()">Add Post</button>
+    </div>
+
+    <!-- Create Post Form -->
+    <div id="postForm" style="display: none;">
+        <h2>Create a Post</h2>
+        <input type="text" id="image_url" placeholder="Image URL">
+        <textarea id="description" placeholder="Description"></textarea>
+        <button onclick="createPost()">Post</button>
+    </div>
+
     <!-- Display Posts -->
     <div id="posts">
         <h2>Recent Posts</h2>

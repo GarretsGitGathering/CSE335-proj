@@ -61,3 +61,31 @@ function loadPosts() {
     })
     .catch(error => console.error('Error:', error));
 }
+
+function togglePostForm() {
+    const postForm = document.getElementById("postForm");
+    postForm.style.display = postForm.style.display === "none" ? "block" : "none";
+}
+
+function createPost() {
+    const image_url = document.getElementById("image_url").value;
+    const description = document.getElementById("description").value;
+
+    fetch('/createPost', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: userId, image_url, description })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadPosts();  // Reload posts after successfully creating a new post
+            document.getElementById("image_url").value = '';
+            document.getElementById("description").value = '';
+            togglePostForm();  // Hide the form again
+        } else {
+            alert("Failed to create post: " + (data.error || "Unknown error"));
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
