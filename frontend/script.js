@@ -44,7 +44,7 @@ function signup() {
 
 
 function loadPosts() {
-    fetch('/getPosts')
+    fetch('https://cse350-proj.onrender.com/getPosts')
     .then(response => response.json())
     .then(posts => {
         const postContainer = document.getElementById("postContainer");
@@ -72,7 +72,7 @@ function createPost() {
     const image_url = document.getElementById("image_url").value;
     const description = document.getElementById("description").value;
 
-    fetch('/createPost', {
+    fetch('https://cse350-proj.onrender.com/createPost', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userId, image_url, description })
