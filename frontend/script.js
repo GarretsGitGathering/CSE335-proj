@@ -1,4 +1,5 @@
-let userId = null;  // Store logged-in user ID
+// Check for stored userId on page load
+let userId = localStorage.getItem("userId");
 
 function login() {
     const username = document.getElementById("username").value;
@@ -13,12 +14,19 @@ function login() {
     .then(data => {
         if (data.success) {
             userId = data.user_id;
+            localStorage.setItem("userId", userId);  // Store userId in localStorage
             window.location.href = "index.html";
         } else {
             alert("Login failed: " + (data.error || "Unknown error"));
         }
     })
     .catch(error => console.error('Error:', error));
+}
+
+function logout() {
+    localStorage.removeItem("userId");
+    userId = null;
+    window.location.href = "login.html";
 }
 
 function signup() {
@@ -41,7 +49,6 @@ function signup() {
     })
     .catch(error => console.error('Error:', error));
 }
-
 
 function loadPosts() {
     fetch('https://cse350-proj.onrender.com/getPosts')
