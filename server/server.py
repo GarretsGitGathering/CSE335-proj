@@ -102,12 +102,17 @@ def create_post():
     
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO posts (user_id, image_url, description) VALUES (%s, %s, %s)", (user_id, image_url, description))
-    conn.commit()
-    cursor.close()
-    conn.close()
-    
-    return jsonify({'success': True}), 201
+    try:
+        cursor.execute("INSERT INTO posts (user_id, image_url, description) VALUES (%s, %s, %s)", (user_id, image_url, description))
+        conn.commit()
+        return jsonify({'success': True}), 201
+    except Exception as e:
+        print("Database error:", e)
+        return jsonify({'success': False, 'error': 'Database error'}), 500
+    finally:
+        cursor.close()
+        conn.close()
+
 
 # Load Posts Route
 @app.route('/getPosts', methods=['GET'])

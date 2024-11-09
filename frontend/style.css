@@ -1,64 +1,166 @@
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
+/* General Reset */
+* {
+    box-sizing: border-box;
     margin: 0;
+    padding: 0;
 }
 
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Header */
 header {
+    width: 100%;
     background-color: #4CAF50;
     color: white;
     padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 header h1 {
-    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
 }
 
-nav .nav-button {
-    margin-left: 15px;
+.nav-button {
     color: white;
     text-decoration: none;
     font-weight: bold;
-    border: 1px solid white;
-    padding: 5px 10px;
+    padding: 8px 12px;
+    border: 2px solid white;
     border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
 }
 
 .nav-button:hover {
-    background-color: #45a049;
+    background-color: white;
+    color: #4CAF50;
 }
 
+/* Main Container */
 .container {
-    max-width: 400px;
-    margin: 50px auto;
+    width: 100%;
+    max-width: 800px;
+    margin: 20px auto;
     padding: 20px;
     background: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+}
+
+/* Create Post Button */
+#createPostButtonContainer {
     text-align: center;
+    margin-top: 20px;
 }
 
-input, button {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 4px;
-    border: 1px solid #ddd;
-}
-
-button {
+#createPostButtonContainer button {
     background-color: #4CAF50;
     color: white;
     border: none;
-    cursor: pointer;
+    padding: 12px 24px;
+    font-size: 16px;
     font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s;
 }
 
-button:hover {
+#createPostButtonContainer button:hover {
     background-color: #45a049;
+}
+
+/* Create Post Form */
+#postForm {
+    margin: 20px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#postForm input,
+#postForm textarea,
+#postForm button {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+#postForm input,
+#postForm textarea {
+    font-size: 16px;
+}
+
+#postForm button {
+    background-color: #4CAF50;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#postForm button:hover {
+    background-color: #45a049;
+}
+
+/* Posts Container */
+#posts {
+    width: 100%;
+    max-width: 800px;
+    margin-top: 20px;
+}
+
+#posts h2 {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+#postContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+}
+
+@media (min-width: 600px) {
+    #postContainer {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.post {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post h3 {
+    font-size: 18px;
+    color: #4CAF50;
+    margin-bottom: 10px;
+}
+
+.post img {
+    width: 100%;
+    max-height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.post p {
+    font-size: 16px;
+    color: #666;
 }

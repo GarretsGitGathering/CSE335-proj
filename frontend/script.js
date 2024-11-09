@@ -42,8 +42,9 @@ function signup() {
     .catch(error => console.error('Error:', error));
 }
 
+
 function loadPosts() {
-    fetch('https://cse350-proj.onrender.com/getPosts')
+    fetch('/getPosts')
     .then(response => response.json())
     .then(posts => {
         const postContainer = document.getElementById("postContainer");
@@ -76,7 +77,12 @@ function createPost() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: userId, image_url, description })
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Network response was not ok");
+        }
+        return response.json();  // Try to parse JSON
+    })
     .then(data => {
         if (data.success) {
             loadPosts();  // Reload posts after successfully creating a new post
@@ -87,5 +93,8 @@ function createPost() {
             alert("Failed to create post: " + (data.error || "Unknown error"));
         }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+        console.error('Error:', error);
+        alert("An error occurred while creating the post. Please try again.");
+    });
 }
