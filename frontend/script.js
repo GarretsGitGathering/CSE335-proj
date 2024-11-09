@@ -4,7 +4,7 @@ function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    fetch('http://127.0.0.1:5000/login', {
+    fetch('https://cse350-proj.onrender.com/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -25,7 +25,7 @@ function signup() {
     const username = document.getElementById("new_username").value;
     const password = document.getElementById("new_password").value;
 
-    fetch('http://127.0.0.1:5000/signup', {
+    fetch('https://cse350-proj.onrender.com/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
@@ -43,7 +43,7 @@ function signup() {
 }
 
 function loadPosts() {
-    fetch('http://127.0.0.1:5000/getPosts')
+    fetch('https://cse350-proj.onrender.com/getPosts')
     .then(response => response.json())
     .then(posts => {
         const postContainer = document.getElementById("postContainer");

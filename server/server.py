@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import psycopg2
 import os
 import hashlib
 
 app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "https://cse350-proj-frontend.onrender.com"}})  # Apply CORS to all routes
 
 # Render.com Database url
 DATABASE_URL = "postgresql://social_media_x8e3_user:iKyOtjfyS7amEwOn7QXPMVjcMHbrvaEA@dpg-csnqhltumphs7386vuo0-a.oregon-postgres.render.com/social_media_x8e3"
