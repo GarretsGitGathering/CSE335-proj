@@ -137,6 +137,7 @@ def get_posts():
 
 
 # Add a comment to a post route
+@app.route('/addComment', methods=['POST'])
 def add_comment():
     data = request.get_json()
     post_id = data.get('post_id')

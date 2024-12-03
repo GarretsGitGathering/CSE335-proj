@@ -107,7 +107,7 @@ function loadPosts() {
                     </div>
                 `;
                 postContainer.appendChild(postElement);
-
+            
                 // Load comments for the post
                 loadComments(post.post_id);
             });
