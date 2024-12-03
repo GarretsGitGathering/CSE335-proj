@@ -33,6 +33,13 @@ def init_db():
                         image_url TEXT,
                         description TEXT)''')
     
+    # create the comments table
+    cursor.execute('''CREATE TABLE IF NOT EXISTS comments (
+                        comment_id SERIAL PRIMARY KEY,
+                        post_id INTEGER REFERENCES posts(post_id),
+                        user_id INTEGER REFERENCES users(user_id),
+                        content TEXT NOT NULL)''')
+    
     conn.commit()
     cursor.close()
     conn.close()
@@ -127,6 +134,57 @@ def get_posts():
     posts_list = [{'image_url': post[0], 'description': post[1], 'username': post[2]} for post in posts]
     
     return jsonify(posts_list)
+
+
+# Add a comment to a post route
+def add_comment():
+    data = request.get_json()
+    post_id = data.get('post_id')
+    user_id = data.get('user_id')
+    content = data.get('content')
+    
+    if not post_id or not user_id or not content:
+        return jsonify({'success': False, 'error': 'All fields are required.'}), 400
+    
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute("INSERT INTO comments (post_id, user_id, content) VALUES (%s, %s, %s)", 
+                       (post_id, user_id, content))
+        conn.commit()
+        return jsonify({'success': True}), 201
+    except Exception as e:
+        print("Database error:", e)
+        return jsonify({'success': False, 'error': 'Database error'}), 500
+    finally:
+        cursor.close()
+        conn.close()
+        
+# Route to get the comments
+@app.route('/getComments', methods=['GET'])
+def get_comments():
+    post_id = request.args.get('post_id')
+    
+    if not post_id:
+        return jsonify({'success': False, 'error': 'Post ID is required.'}), 400
+    
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    try:
+        cursor.execute('''SELECT comments.content, users.username 
+                          FROM comments 
+                          JOIN users ON comments.user_id = users.user_id 
+                          WHERE comments.post_id = %s''', (post_id,))
+        comments = cursor.fetchall()
+        
+        comments_list = [{'content': comment[0], 'username': comment[1]} for comment in comments]
+        return jsonify(comments_list)
+    except Exception as e:
+        print("Database error:", e)
+        return jsonify({'success': False, 'error': 'Database error'}), 500
+    finally:
+        cursor.close()
+        conn.close()
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000, debug=True)

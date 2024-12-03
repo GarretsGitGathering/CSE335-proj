@@ -12,6 +12,7 @@
         <nav>
             <a href="login.html" class="nav-button">Login</a>
             <a href="signup.html" class="nav-button">Sign Up</a>
+            <button id="logoutButton" class="nav-button" style="display:none;" onclick="logout()">Logout</button>
         </nav>
     </header>
 
@@ -35,9 +36,5 @@
     </div>
 
     <script src="script.js"></script>
-    <script>
-        // Load posts on page load
-        document.addEventListener("DOMContentLoaded", loadPosts);
-    </script>
 </body>
 </html>
