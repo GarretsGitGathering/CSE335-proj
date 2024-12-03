@@ -126,15 +126,22 @@ def create_post():
 def get_posts():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT posts.image_url, posts.description, users.username FROM posts JOIN users ON posts.user_id = users.user_id")
+    cursor.execute("""
+        SELECT posts.post_id, posts.image_url, posts.description, users.username 
+        FROM posts 
+        JOIN users ON posts.user_id = users.user_id
+    """)
     posts = cursor.fetchall()
     cursor.close()
     conn.close()
     
-    posts_list = [{'image_url': post[0], 'description': post[1], 'username': post[2]} for post in posts]
+    # Include post_id in the response
+    posts_list = [
+        {'post_id': post[0], 'image_url': post[1], 'description': post[2], 'username': post[3]} 
+        for post in posts
+    ]
     
     return jsonify(posts_list)
-
 
 # Add a comment to a post route
 @app.route('/addComment', methods=['POST'])
