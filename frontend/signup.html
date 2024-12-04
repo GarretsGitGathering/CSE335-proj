@@ -4,20 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="login.css">
 </head>
 <body>
-    <header>
-        <h1>Sign Up</h1>
-    </header>
-    <main>
-        <div class="signup-form">
-            <input type="text" id="new_username" placeholder="Enter your username" required>
-            <input type="password" id="new_password" placeholder="Enter your password" required>
-            <button onclick="signup()">Sign Up</button>
-        </div>
-    </main>
+    <div class="container">
+        <h2>Sign Up</h2>
+        <input type="text" id="new_username" placeholder="Username">
+        <input type="password" id="new_password" placeholder="Password">
+        <button onclick="signup()">Sign Up</button>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
-
