@@ -13,6 +13,32 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+function signup() {
+    const username = document.getElementById("new_username").value;
+    const password = document.getElementById("new_password").value;
+
+    if (!username || !password) {
+        alert("Username and password are required!");
+        return;
+    }
+
+    fetch('https://cse350-proj.onrender.com/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("Signup successful! Please log in.");
+                window.location.href = "login.html"; // Redirect to login page
+            } else {
+                alert("Signup failed: " + (data.error || "Unknown error"));
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
+
 function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
